@@ -1,0 +1,1118 @@
+html {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+body {
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #000;
+  transition: background-color 1s;
+  overflow: hidden;
+  font-family: Roboto, sans-serif;
+}
+
+.records-wrapper {
+  position: relative;
+  width: 100vmin;
+  height: 100vmin;
+  max-width: 1200px;
+  max-height: 1200px;
+  margin: 10vmin auto 0;
+  transition: width 0.3s, height 0.3s;
+}
+
+.records--nested .records-wrapper {
+  width: 80vmin;
+  height: 80vmin;
+}
+
+@media (min-aspect-ratio: 4 / 5) {
+  .records--stacked .records-wrapper {
+    width: 80vmin;
+    height: 80vmin;
+  }
+}
+
+.records {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity .75s ease, transform .75s ease-in;
+  opacity: 1;
+}
+
+.records__overflow-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.records--active {
+  -ms-transform: translateX(0) rotate(0deg);
+  transform: translateX(0) rotate(0deg);
+}
+
+.records--inactive {
+  opacity: 0;
+  -ms-transform: translateX(100%) rotate(90deg);
+  transform: translateX(100%) rotate(90deg);
+  pointer-events: none;
+}
+
+.record {
+  z-index: 0;
+  transition: top .5s ease, right .5s ease, bottom .5s ease, left .5s ease, width .5s ease, height .5s ease, opacity .5s ease;
+  margin: 0 auto;
+  opacity: .6;
+  cursor: pointer;
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.records--stacked .record {
+  opacity: 0.8;
+}
+
+.record__image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.record {
+  .listen-link {
+    display: none;
+  }
+  .record__image {
+    animation: rotate 5s infinite linear normal;
+  }
+  &.stop .record__image {
+    animation-play-state: paused;
+  }
+  &:nth-child(odd) .record__image {
+    animation-duration: 10s;
+  }
+  &:nth-child(even) .record__image {
+    animation-direction: reverse;
+  }
+}
+
+.records--nested .records--hovered .record {
+  opacity: 0;
+}
+
+.record.active, .records--nested .record.hovered {
+  opacity: 1;
+}
+
+.record {
+  .records--inactive .record__image {
+    animation-play-state: paused;
+  }
+  > div:not(.record__image) {
+    transition: opacity 1.3s;
+  }
+}
+
+.records--nested {
+  .record > div:not(.record__image) {
+    opacity: 0;
+    transition-duration: 0s;
+    pointer-events: none;
+  }
+  .meta {
+    pointer-events: none;
+    font-size: 0.7em;
+    .caption, .number {
+      transition: opacity .5s ease .2s;
+      opacity: 0;
+    }
+  }
+  .caption {
+    position: absolute;
+    width: 10em;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    opacity: .5;
+    font-size: 1.5em;
+  }
+  .artist {
+    top: 36%;
+    left: 2em;
+    text-align: right;
+  }
+  .album {
+    top: 61%;
+    right: 2em;
+    font-style: italic;
+  }
+  .number {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    z-index: 9999;
+    text-align: center;
+    font-size: 5em;
+    font-weight: bold;
+    color: #ddd;
+    font-family: "Old Standard TT", serif;
+  }
+  .number--1 {
+    bottom: 55%;
+  }
+  .number--2 {
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    top: 55%;
+  }
+  .records--hovered {
+    .meta {
+      .caption {
+        opacity: 1;
+      }
+      .number {
+        opacity: 0.9;
+      }
+    }
+    .artist {
+      animation: artist 0.25s ease 1 alternate both;
+    }
+    .album {
+      animation: album 0.25s ease 1 alternate both;
+    }
+  }
+}
+
+@media (min-width: 500px) and (min-height: 500px) {
+  .records--nested .meta {
+    font-size: 1em;
+  }
+}
+
+@media (min-aspect-ratio: 60 / 70) and (max-aspect-ratio: 70 / 55) {
+  .records--nested .meta {
+    font-size: 1em;
+  }
+}
+
+@media (min-aspect-ratio: 60 / 70) and (max-aspect-ratio: 70 / 55) {
+  .records--nested .caption {
+    opacity: .9;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (min-aspect-ratio: 60 / 70) and (max-aspect-ratio: 70 / 55) {
+  .records--nested .records--hovered .artist {
+    animation: artist2 .25s ease 1 alternate both;
+    z-index: 9999;
+  }
+}
+
+@media (max-aspect-ratio: 60 / 70) {
+  .records--nested .records--hovered .artist {
+    animation: artist2 .25s ease 1 alternate both;
+    top: -10%;
+  }
+}
+
+@media (min-aspect-ratio: 60 / 70) and (max-aspect-ratio: 70 / 55) {
+  .records--nested .records--hovered .album {
+    animation: album2 .25s ease 1 alternate both;
+    z-index: 9999;
+  }
+}
+
+@media (max-aspect-ratio: 60 / 70) {
+  .records--nested .records--hovered .album {
+    animation: album2 .25s ease 1 alternate both;
+    top: 105%;
+  }
+}
+
+.records--stacked {
+  .meta {
+    display: none;
+  }
+  .record {
+    overflow: visible;
+  }
+  .record__number {
+    font-size: 1.5em;
+    position: absolute;
+    color: white;
+    width: 1.5em;
+    left: -2.25em;
+    text-align: right;
+    font-family: "Old Standard TT";
+    top: calc(50% - .65em);
+    opacity: 1;
+  }
+  .record__artist {
+    position: absolute;
+    left: calc(100% + 1em);
+    color: white;
+    font-size: .6em;
+    width: 14em;
+    top: 20%;
+    opacity: 1;
+  }
+  .record__album {
+    position: absolute;
+    top: 55%;
+    color: white;
+    font-size: .6em;
+    left: calc(100% + 1em);
+    width: 14em;
+    font-style: italic;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 600px) {
+  .records--stacked .record__artist {
+    font-size: .8em;
+    top: 25%;
+  }
+}
+
+@media (min-width: 600px) {
+  .records--stacked .record__album {
+    font-size: .8em;
+    top: 50%;
+  }
+}
+
+@keyframes artist {
+  0% {
+    left: 2em;
+  }
+
+  100% {
+    left: -11em;
+  }
+}
+
+
+@keyframes artist2 {
+  0% {
+    left: 2em;
+  }
+
+  100% {
+    left: -3em;
+  }
+}
+
+
+@keyframes album {
+  0% {
+    right: 2em;
+  }
+
+  100% {
+    right: -11em;
+  }
+}
+
+
+@keyframes album2 {
+  0% {
+    right: 2em;
+  }
+
+  100% {
+    right: -3em;
+  }
+}
+
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.center {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: calc(50% - 8px);
+  top: calc(50% - 8px);
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: 200;
+  transition: left 0.6s, top 0.6s, width 0.6s, height 0.6s, opacity 0.3s;
+}
+
+.records--stacked .center {
+  opacity: 0;
+}
+
+.center__content {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  -ms-flex-pack: center;
+  justify-content: center;
+  a {
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+    opacity: .4;
+    position: relative;
+    transition: left 0.7s;
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}
+
+.center__content__1 {
+  left: 2em;
+}
+
+.center__content__2 {
+  left: -2em;
+}
+
+.records--show-center {
+  .center {
+    width: 80px;
+    height: 80px;
+    left: calc(50% - 40px);
+    top: calc(50% - 40px);
+    transition-duration: .25s;
+    opacity: 0.85;
+  }
+  .center__content {
+    opacity: 1;
+    transition-duration: .3s;
+    pointer-events: auto;
+  }
+  .center__content__1, .center__content__2 {
+    left: 0;
+    transition-duration: 0.5s;
+  }
+}
+
+.record--1 {
+  top: 1%;
+  right: 1%;
+  bottom: 1%;
+  left: 1%;
+  width: 98%;
+  height: 98%;
+  z-index: 1;
+  &.hovered {
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.records--stacked .record--1 {
+  top: 0%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--1 .record__image {
+  background-image: url(../public/img/images/phoebeBridgers_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--1 .record__image {
+    background-image: url(../public/img/images/phoebeBridgers.jpg);
+  }
+}
+
+.records--2 .record--1 .record__image {
+  background-image: url(../public/img/images/julieByrne_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--1 .record__image {
+    background-image: url(../public/img/images/julieByrne.jpg);
+  }
+}
+
+.record--2 {
+  top: 5%;
+  right: 5%;
+  bottom: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  z-index: 2;
+  &.hovered {
+    top: 3%;
+    right: 3%;
+    bottom: 3%;
+    left: 3%;
+    width: 94%;
+    height: 94%;
+  }
+}
+
+.records--stacked .record--2 {
+  top: 10%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--2 .record__image {
+  background-image: url(../public/img/images/sylvanEsso2_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--2 .record__image {
+    background-image: url(../public/img/images/sylvanEsso2.jpg);
+  }
+}
+
+.records--2 .record--2 .record__image {
+  background-image: url(../public/img/images/lapd2_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--2 .record__image {
+    background-image: url(../public/img/images/lapd2.jpg);
+  }
+}
+
+.record--3 {
+  top: 10%;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  z-index: 3;
+  &.hovered {
+    top: 6%;
+    right: 6%;
+    bottom: 6%;
+    left: 6%;
+    width: 88%;
+    height: 88%;
+  }
+}
+
+.records--stacked .record--3 {
+  top: 20%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--3 .record__image {
+  background-image: url(../public/img/images/muna_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--3 .record__image {
+    background-image: url(../public/img/images/muna.jpg);
+  }
+}
+
+.records--2 .record--3 .record__image {
+  background-image: url(../public/img/images/bigThief_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--3 .record__image {
+    background-image: url(../public/img/images/bigThief.jpg);
+  }
+}
+
+.record--4 {
+  top: 15%;
+  right: 15%;
+  bottom: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  z-index: 4;
+  &.hovered {
+    top: 9%;
+    right: 9%;
+    bottom: 9%;
+    left: 9%;
+    width: 82%;
+    height: 82%;
+  }
+}
+
+.records--stacked .record--4 {
+  top: 30%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--4 .record__image {
+  background-image: url(../public/img/images/altJ_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--4 .record__image {
+    background-image: url(../public/img/images/altJ.jpg);
+  }
+}
+
+.records--2 .record--4 .record__image {
+  background-image: url(../public/img/images/cigarettesAfterSex2_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--4 .record__image {
+    background-image: url(../public/img/images/cigarettesAfterSex2.jpg);
+  }
+}
+
+.record--5 {
+  top: 20%;
+  right: 20%;
+  bottom: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  z-index: 5;
+  &.hovered {
+    top: 12%;
+    right: 12%;
+    bottom: 12%;
+    left: 12%;
+    width: 76%;
+    height: 76%;
+  }
+}
+
+.records--stacked .record--5 {
+  top: 40%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--5 .record__image {
+  background-image: url(../public/img/images/fayeWebster_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--5 .record__image {
+    background-image: url(../public/img/images/fayeWebster.jpg);
+  }
+}
+
+.records--2 .record--5 .record__image {
+  background-image: url(../public/img/images/phoebeBridgers_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--5 .record__image {
+    background-image: url(../public/img/images/phoebeBridgers.jpg);
+  }
+}
+
+.record--6 {
+  top: 25%;
+  right: 25%;
+  bottom: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  z-index: 6;
+  &.hovered {
+    top: 15%;
+    right: 15%;
+    bottom: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+  }
+}
+
+.records--stacked .record--6 {
+  top: 50%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--6 .record__image {
+  background-image: url(../public/img/images/alvvays_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--6 .record__image {
+    background-image: url(../public/img/images/alvvays.jpg);
+  }
+}
+
+.records--2 .record--6 .record__image {
+  background-image: url(../public/img/images/sylvanEsso2_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--6 .record__image {
+    background-image: url(../public/img/images/sylvanEsso2.jpg);
+  }
+}
+
+.record--7 {
+  top: 30%;
+  right: 30%;
+  bottom: 30%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  z-index: 7;
+  &.hovered {
+    top: 18%;
+    right: 18%;
+    bottom: 18%;
+    left: 18%;
+    width: 64%;
+    height: 64%;
+  }
+}
+
+.records--stacked .record--7 {
+  top: 60%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--7 .record__image {
+  background-image: url(../public/img/images/bigThief_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--7 .record__image {
+    background-image: url(../public/img/images/bigThief.jpg);
+  }
+}
+
+.records--2 .record--7 .record__image {
+  background-image: url(../public/img/images/fleetFoxes_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--7 .record__image {
+    background-image: url(../public/img/images/fleetFoxes.jpg);
+  }
+}
+
+.record--8 {
+  top: 35%;
+  right: 35%;
+  bottom: 35%;
+  left: 35%;
+  width: 30%;
+  height: 30%;
+  z-index: 8;
+  &.hovered {
+    top: 21%;
+    right: 21%;
+    bottom: 21%;
+    left: 21%;
+    width: 58%;
+    height: 58%;
+  }
+}
+
+.records--stacked .record--8 {
+  top: 70%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--8 .record__image {
+  background-image: url(../public/img/images/warOnDrugs_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--8 .record__image {
+    background-image: url(../public/img/images/warOnDrugs.jpg);
+  }
+}
+
+.records--2 .record--8 .record__image {
+  background-image: url(../public/img/images/dispatch_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--8 .record__image {
+    background-image: url(../public/img/images/dispatch.jpg);
+  }
+}
+
+.record--9 {
+  top: 40%;
+  right: 40%;
+  bottom: 40%;
+  left: 40%;
+  width: 20%;
+  height: 20%;
+  z-index: 9;
+  &.hovered {
+    top: 24%;
+    right: 24%;
+    bottom: 24%;
+    left: 24%;
+    width: 52%;
+    height: 52%;
+  }
+}
+
+.records--stacked .record--9 {
+  top: 80%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--9 .record__image {
+  background-image: url(../public/img/images/wildReeds_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--9 .record__image {
+    background-image: url(../public/img/images/wildReeds.jpg);
+  }
+}
+
+.records--2 .record--9 .record__image {
+  background-image: url(../public/img/images/theClientele_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--9 .record__image {
+    background-image: url(../public/img/images/theClientele.jpg);
+  }
+}
+
+.record--10 {
+  top: 45%;
+  right: 45%;
+  bottom: 45%;
+  left: 45%;
+  width: 10%;
+  height: 10%;
+  z-index: 10;
+  &.hovered {
+    top: 27%;
+    right: 27%;
+    bottom: 27%;
+    left: 27%;
+    width: 46%;
+    height: 46%;
+  }
+}
+
+.records--stacked .record--10 {
+  top: 90%;
+  width: 10%;
+  height: 10%;
+}
+
+.records--1 .record--10 .record__image {
+  background-image: url(../public/img/images/jaySom_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--1 .record--10 .record__image {
+    background-image: url(../public/img/images/jaySom.jpg);
+  }
+}
+
+.records--2 .record--10 .record__image {
+  background-image: url(../public/img/images/preservationHallJazzBand_low.jpg);
+}
+
+@media (min-width: 600px) {
+  .records--2 .record--10 .record__image {
+    background-image: url(../public/img/images/preservationHallJazzBand.jpg);
+  }
+}
+
+.option {
+  position: absolute;
+  right: 2em;
+  color: white;
+  opacity: .7;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.65em;
+  &.option--on {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 500px) {
+  .option {
+    font-size: 0.8em;
+  }
+}
+
+.option__item {
+  display: none;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.option span {
+  margin-left: 0.5em;
+}
+
+.option--on .option__item--on, .option--off .option__item--off {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.audio-trigger {
+  bottom: 3em;
+  svg {
+    width: 1.5em;
+  }
+}
+
+@media (min-height: 500px) {
+  .audio-trigger {
+    bottom: 4em;
+  }
+}
+
+.autorun-trigger {
+  bottom: 1em;
+}
+
+@media (min-height: 500px) {
+  .autorun-trigger {
+    bottom: 2em;
+  }
+}
+
+.autorun .autorun-trigger {
+  animation: pulsate 3s infinite;
+}
+
+.autorun-trigger svg {
+  width: 1.25em;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.075);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.last-year {
+  position: absolute;
+  bottom: 1em;
+  left: 2em;
+  color: white;
+  opacity: .5;
+  font-size: .6em;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+@media (min-width: 500px) {
+  .last-year {
+    font-size: 0.85em;
+  }
+}
+
+@media (min-height: 500px) {
+  .last-year {
+    bottom: 2em;
+  }
+}
+
+.site-title {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 2em;
+  top: 4em;
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -ms-transform-origin: left top 0;
+  transform-origin: left top 0;
+  transition: transform .25s ease;
+  font-size: 0.85em;
+}
+
+@media (min-width: 400px) {
+  .site-title {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 700px) {
+  .site-title {
+    -ms-transform: none;
+    transform: none;
+    left: 2em;
+    top: 2.25em;
+    left: 7%;
+    right: auto;
+    text-align: left;
+  }
+}
+
+.logo {
+  width: 2em;
+  position: absolute;
+  left: -2.75em;
+  top: -0.5em;
+  &:hover {
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+.names {
+  position: absolute;
+  left: calc(50% - 5em);
+  top: 1em;
+  text-align: center;
+  width: 10em;
+  color: white;
+}
+
+@media (min-height: 500px) {
+  .names {
+    top: 2em;
+  }
+}
+
+.name {
+  display: inline-block;
+  cursor: pointer;
+  padding: .25em .5em;
+  text-transform: uppercase;
+  position: relative;
+  span {
+    opacity: 0.5;
+  }
+  &.is--active {
+    cursor: default;
+    span {
+      opacity: .95;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+    }
+  }
+  &:not(.is--active):hover span {
+    opacity: 0.9;
+  }
+}
+
+@media (min-width: 400px) {
+  .name--1::after {
+    background-color: white;
+    bottom: -9999px;
+    content: "";
+    position: absolute;
+    right: -0.21em;
+    top: -2em;
+    width: 1px;
+    opacity: 0.8;
+  }
+}
+
+.progress {
+  position: fixed;
+  bottom: 0;
+  top: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: -1;
+  transition: top 1s linear;
+}
+
+.record-active--1 .progress {
+  left: 0;
+  right: 50%;
+}
+
+.record-active--2 .progress {
+  left: 50%;
+  right: 0;
+}
+
+.layout-icons {
+  position: absolute;
+  right: 1em;
+  top: 15%;
+}
+
+@media (min-width: 600px) {
+  .layout-icons {
+    right: 1.5em;
+    top: 40%;
+  }
+}
+
+@media (min-width: 800px) {
+  .layout-icons {
+    right: 3em;
+  }
+}
+
+.layout-icon {
+  width: 28px;
+  opacity: .4;
+  display: block;
+  margin: 1em 0;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 0.6;
+  }
+  &.is--active {
+    opacity: 1 !important;
+  }
+}
