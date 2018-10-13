@@ -39,7 +39,7 @@
             <section class="player-greet" v-if="!hasChannel && !hasErrors">
               <div class="fx fx-slide-left push-bottom"><h1>Pick a Station</h1></div>
               <div class="fx fx-slide-left fx-delay-1 push-bottom">This is a music streaming player for the channels provided by SomaFM.com. Just pick a station from the sidebar to the right to start listening.</div>
-              <div class="fx fx-slide-up fx-delay-2 pad-top"><button class="cta-btn" @click="toggleSidebar( true )"><i class="fa fa-headphones">&nbsp;</i> View Stations</button></div>
+              <div class="fx fx-slide-up fx-delay-2 pad-top"><button class="cta-btn" @click="toggleSidebar( true )">View Stations</button></div>
             </section>
 
             <!-- show selected channel info if possible -->
@@ -51,10 +51,10 @@
                   <!-- station -->
                   <div class="push-bottom pad-bottom border-bottom">
                     <div class="flex-row flex-middle">
-                      <img class="img-round fx fx-drop-in fx-delay-1" :src="channel.largeimage" width="50" height="50" :alt="channel.title" />
+                      <img class="img-round fx fx-drop-in fx-delay-1" :src="channel.largeimage" width="60" height="60" :alt="channel.title" />
                       <div class="pad-left fx fx-slide-left fx-delay-2">
-                        <div class="text-clip text-uppercase">{{ channel.genre | toSpaces }}</div>
                         <h2 class="text-clip">{{ channel.title }}</h2>
+                        <div class="text-clip genre">{{ channel.genre | toSpaces }}</div>
                       </div>
                     </div>
                   </div>
@@ -72,7 +72,7 @@
                   <!-- buttons -->
                   <div class="push-bottom">
                     <a class="cta-btn text-nowrap fx fx-slide-up fx-delay-6" :href="channel.infourl" title="Channel page" target="_blank">
-                      <span class="fx fx-notx fx-ibk fx-drop-in fx-delay-1" :key="channel.listeners"><i class="fa fa-headphones"></i> {{ channel.listeners | toCommas( 0 ) }} Listeners</span>
+                      <span class="fx fx-notx fx-ibk fx-drop-in fx-delay-1" :key="channel.listeners">{{ channel.listeners | toCommas( 0 ) }} Listeners</span>
                     </a> &nbsp;
                   </div>
                 </div>

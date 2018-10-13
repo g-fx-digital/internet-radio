@@ -6,7 +6,10 @@
   "scripts": {
     "sass": "node-sass -w ./scss -o ./public/css",
     "sass-min": "node-sass -w ./scss -o ./public/css --output-style compressed",
-    "init": "live-server --open=."
+    "init": "live-server --open=.",
+    "generate": "nuxt generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
+    "start": "npm run init"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,11 @@
   },
   "homepage": "https://github.com/rainner/soma-fm-player#readme",
   "dependencies": {
-    "node-sass": "^4.9.3"
+    "gh-pages": "^2.0.1",
+    "node-sass": "^4.9.3",
+    "nuxt": "^2.2.0"
+  },
+  "devDependencies": {
+    "push-dir": "^0.4.1"
   }
 }
